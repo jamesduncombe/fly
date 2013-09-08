@@ -26,25 +26,16 @@ func main() {
   validateEnvs()
 
   if flag.NFlag() == 0 || !other_details {
-    fmt.Print("\x1b[31;1m") //red
-    fmt.Println(header)
-    fmt.Print("\x1b[0m") // reset
-
-    fmt.Println("\x1b[34;1mUsage\x1b[0m:")
-    fmt.Println()
-    flag.PrintDefaults()
-    fmt.Println()
-    fmt.Println("\x1b[34;1mNote\x1b[0m: All options must be set...")
-    fmt.Println()
+    printUsage()
+  } else if message != "" && other_details {
+    sendSms()
   } else {
-    if message != "" && other_details {
-      sendSms(message)
-    }
+    panic("Ohh shit")
   }
 
 }
 
-func sendSms(message string) {
+func sendSms() {
 
   client := &http.Client{}
   postData := "Body="+message+"&To="+to+"&From="+from
@@ -106,4 +97,37 @@ func validateEnvs() {
     other_details = false
   }
 
+}
+
+func printUsage() {
+  red()
+  fmt.Println(header)
+  reset()
+
+  blue()
+  fmt.Print("Usage")
+  reset()
+  fmt.Println(":")
+
+  fmt.Println()
+  flag.PrintDefaults()
+  fmt.Println()
+
+  blue()
+  fmt.Print("Note")
+  reset()
+  fmt.Println(": All options must be set...")
+  fmt.Println()
+}
+
+func red() {
+  fmt.Print("\x1b[31;1m")
+}
+
+func blue() {
+  fmt.Print("\x1b[34;1m")
+}
+
+func reset() {
+  fmt.Print("\x1b[0m")
 }
