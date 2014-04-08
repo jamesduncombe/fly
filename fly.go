@@ -9,12 +9,12 @@ import (
 )
 
 const header = `
-___________         __          
-\__    ___/__  ____/  |_ ___.__.
-  |    |  \  \/  /\   __<   |  |
-  |    |   >    <  |  |  \___  |
-  |____|  /__/\_ \ |__|  / ____|
-                \/       \/     
+___________.__
+\_   _____/|  | ___.__.
+ |    __)  |  |<   |  |
+ |     \   |  |_\___  |
+ \___  /   |____/ ____|
+     \/         \/
 `
 
 var message, to, from, twilio_auth_token, twilio_account string
@@ -30,7 +30,7 @@ func main() {
   } else if message != "" && other_details {
     sendSms()
   } else {
-    panic("Ohh shit")
+    panic("Ohh :(")
   }
 
 }
@@ -64,35 +64,35 @@ func apiAddress() string {
 
 func setupFlags() {
   flag.StringVar(&message, "m", "", "message you want to send")
-  flag.StringVar(&to, "t", "", "number you will send to / TXTY_TO env")
-  flag.StringVar(&from, "f", "", "number you will send from / TXTY_FROM env")
-  flag.StringVar(&twilio_account, "a", "", "Twilio account number / TXTY_TWILIO_ACCOUNT env")
-  flag.StringVar(&twilio_auth_token, "o", "", "Twilio auth token / TXTY_TWILIO_AUTH_TOKEN env")
+  flag.StringVar(&to, "t", "", "number you will send to / FLY_TO env")
+  flag.StringVar(&from, "f", "", "number you will send from / FLY_FROM env")
+  flag.StringVar(&twilio_account, "a", "", "Twilio account number / FLY_TWILIO_ACCOUNT env")
+  flag.StringVar(&twilio_auth_token, "o", "", "Twilio auth token / FLY_TWILIO_AUTH_TOKEN env")
   flag.Parse()
 }
 
 func validateEnvs() {
 
-  if to == "" && os.Getenv("TXTY_TO") != "" {
-    to = os.Getenv("TXTY_TO")
+  if to == "" && os.Getenv("FLY_TO") != "" {
+    to = os.Getenv("FLY_TO")
   } else {
     other_details = false
   }
 
-  if from == "" && os.Getenv("TXTY_FROM") != "" {
-    from = os.Getenv("TXTY_FROM")
+  if from == "" && os.Getenv("FLY_FROM") != "" {
+    from = os.Getenv("FLY_FROM")
   } else {
     other_details = false
   }
 
-  if twilio_auth_token == "" && os.Getenv("TXTY_TWILIO_AUTH_TOKEN") != "" {
-    twilio_auth_token = os.Getenv("TXTY_TWILIO_AUTH_TOKEN")
+  if twilio_auth_token == "" && os.Getenv("FLY_TWILIO_AUTH_TOKEN") != "" {
+    twilio_auth_token = os.Getenv("FLY_TWILIO_AUTH_TOKEN")
   } else {
     other_details = false
   }
 
-  if twilio_account == "" && os.Getenv("TXTY_TWILIO_ACCOUNT") != "" {
-    twilio_account = os.Getenv("TXTY_TWILIO_ACCOUNT")
+  if twilio_account == "" && os.Getenv("FLY_TWILIO_ACCOUNT") != "" {
+    twilio_account = os.Getenv("FLY_TWILIO_ACCOUNT")
   } else {
     other_details = false
   }
