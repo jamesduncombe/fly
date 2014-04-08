@@ -39,10 +39,10 @@ func sendSms() {
 
   client := &http.Client{}
   postData := "Body="+message+"&To="+to+"&From="+from
-  
+
   req, _ := http.NewRequest("POST", apiAddress(), bytes.NewReader([]byte(postData)))
   req.SetBasicAuth(twilio_account, twilio_auth_token)
-  
+
   req.ContentLength = int64(len(postData))
   req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -72,7 +72,7 @@ func setupFlags() {
 }
 
 func validateEnvs() {
-  
+
   if to == "" && os.Getenv("TXTY_TO") != "" {
     to = os.Getenv("TXTY_TO")
   } else {
